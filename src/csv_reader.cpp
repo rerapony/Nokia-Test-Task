@@ -21,7 +21,7 @@ bool is_expression(const std::string& s) {
 }
 
 
-CSVReader::CSVReader(char d): delimiter(d) {}
+CSVReader::CSVReader(std::ostream& stream, char d): out_stream(stream), delimiter(d) {}
 
 void CSVReader::read_csv(const std::string& filename) {
     clear();
@@ -121,7 +121,7 @@ void CSVReader::print_table(std::vector<std::vector<T>> table) {
     if (!table.empty()) {
         print_line(colnames);
         for (size_t i = 0; i < rownums.size(); ++i) {
-            std::cout << rownums[i];
+            out_stream << rownums[i];
             print_line(table[i]);
         }
     }
@@ -130,9 +130,9 @@ void CSVReader::print_table(std::vector<std::vector<T>> table) {
 template<typename T>
 void CSVReader::print_line(std::vector<T> line) {
     for (auto& elem: line) {
-        std::cout << delimiter << elem;
+        out_stream << delimiter << elem;
     }
-    std::cout << std::endl;
+    out_stream << std::endl;
 }
 
 void CSVReader::evaluate_cell(size_t i, size_t j) {

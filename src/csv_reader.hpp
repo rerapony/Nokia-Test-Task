@@ -15,8 +15,10 @@ class CSVReader {
     std::vector<std::vector<int>> eval_table;
     std::vector<std::vector<bool>> evaluated;
 
+    std::ostream& out_stream;
+
 public:
-    explicit CSVReader(char d=',');
+    explicit CSVReader(std::ostream& stream = std::cout, char d=',');
 
     void read_csv(const std::string& filename);
 
